@@ -41,6 +41,7 @@ public class UserController {
 	
 	//<Void> -- V is caps since we need to use wrapper calss
 	//UriComponentsBuilder--used to build Rest Client URI/Endpoint
+	//@Valid - When we use this annotation, the input value will be validated across what condition we give in entity calss fields
 	@PostMapping("/createuser")
 	public ResponseEntity<Void> createUser(@Valid @RequestBody User user,UriComponentsBuilder builder)
 	{
