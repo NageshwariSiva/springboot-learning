@@ -1,5 +1,8 @@
 package com.restservices.entities;
 
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Size;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -19,9 +22,11 @@ public class User {
 	private Long id;
 	
 	// A table should have one primarykey but can have multiple unique key.
+	@NotEmpty(message = "Username should not be empty")
 	@Column(name = "USER_NAME",length=50,nullable=false,unique=true)
 	private String username;   //unique key
 	
+	@Size(min=2,message="fname should length of atleast 2")
 	@Column(name="FIRST_NAME",length=50,nullable=false)
 	private String fname;
 	

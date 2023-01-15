@@ -3,10 +3,14 @@ package com.restservices.controller;
 import java.util.List;
 import java.util.Optional;
 
+import javax.validation.Valid;
+import javax.validation.constraints.Min;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -23,6 +27,7 @@ import com.restservices.exception.UserNotFoundException;
 import com.restservices.services.UserService;
 
 @RestController
+@Validated
 public class UserController {
 	
 	//Autowire Service
@@ -37,7 +42,7 @@ public class UserController {
 	//<Void> -- V is caps since we need to use wrapper calss
 	//UriComponentsBuilder--used to build Rest Client URI/Endpoint
 	@PostMapping("/createuser")
-	public ResponseEntity<Void> createUser(@RequestBody User user,UriComponentsBuilder builder)
+	public ResponseEntity<Void> createUser(@Valid @RequestBody User user,UriComponentsBuilder builder)
 	{
 		try {
 			userservice.createUser(user);
@@ -53,7 +58,7 @@ public class UserController {
 	}
 	
 	@GetMapping("/getuser/{id}")   //both id var should have same name
-	public Optional<User> getUserByID(@PathVariable("id") Long id){
+	public Optional<User> getUserByID(@PathVariable("id") @Min(1) Long id){ // min annotation -- ensuring whether user added id value in path
 		
 		try {
 			return userservice.getUserByID(id);
@@ -79,8 +84,12 @@ public class UserController {
 	}
 	
 	@GetMapping("/findbyusername/username")
-	public User findByUserName(@PathVariable("username") String username) {
-		return userservice.findByUserName(username);
+	public User findByUserName(@PathVariable("username") String username) throws UserNotFoundException {
+		User user = userservice.findByUserName(username);
+		if(user == null) {
+			throw new UserNotFoundException("Given user not exsist in Repository");
+		}
+		return user;
 	}
 	
 	
