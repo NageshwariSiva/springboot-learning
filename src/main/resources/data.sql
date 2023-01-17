@@ -1,3 +1,9 @@
-insert into users(id,email,fname,lname,role,ssn,username) values(101,'Jega@citi.com','Jegadha','Siva','manager','NS34624','NageshwariS');
-insert into users(id,email,fname,lname,role,ssn,username) values(102,'Vibhi@citi.com','Vibhi','Siva','Employee','VB34624','Vibhi');
-insert into users(id,email,fname,lname,role,ssn,username) values(103,'Ishan@citi.com','Ishan','Siva','HR','IS34624','Ishan');
+insert into users values(101,'kreddy@stacksimplify.com', 'Kalyan', 'Reddy', 'admin', 'ssn101', 'kreddy');
+insert into users values(102,'gwiser@stacksimplify.com', 'Greg', 'Wiser', 'admin', 'ssn102', 'gwiser');
+insert into users values(103,'dmark@stacksimplify.com', 'David', 'Mark', 'admin', 'ssn103', 'dmark');    
+insert into orders values( 2001, 'order11', 101);        
+insert into orders values( 2002, 'order12', 101);
+insert into orders values( 2003, 'order13', 101);
+insert into orders values( 2004, 'order21', 102);
+insert into orders values( 2005, 'order22', 102);
+insert into orders values( 2006, 'order31', 103);

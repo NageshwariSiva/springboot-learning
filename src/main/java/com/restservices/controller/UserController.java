@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 import org.springframework.web.util.UriComponentsBuilder;
@@ -28,13 +29,14 @@ import com.restservices.services.UserService;
 
 @RestController
 @Validated
+@RequestMapping(value = "/user")
 public class UserController {
 	
 	//Autowire Service
 	@Autowired
 	private UserService userservice;
 	
-	@GetMapping("/users")
+	@GetMapping
 	public List<User> getAllUsers(){
 		return userservice.getAllUsers();
 	}
@@ -42,7 +44,7 @@ public class UserController {
 	//<Void> -- V is caps since we need to use wrapper calss
 	//UriComponentsBuilder--used to build Rest Client URI/Endpoint
 	//@Valid - When we use this annotation, the input value will be validated across what condition we give in entity calss fields
-	@PostMapping("/createuser")
+	@PostMapping
 	public ResponseEntity<Void> createUser(@Valid @RequestBody User user,UriComponentsBuilder builder)
 	{
 		try {
@@ -58,7 +60,7 @@ public class UserController {
 		}
 	}
 	
-	@GetMapping("/getuser/{id}")   //both id var should have same name
+	@GetMapping("/{id}")   //both id var should have same name
 	public Optional<User> getUserByID(@PathVariable("id") @Min(1) Long id){ // min annotation -- ensuring whether user added id value in path
 		
 		try {
@@ -69,7 +71,7 @@ public class UserController {
 		}
 	}
 	
-	@PutMapping("/updateuser/{id}")
+	@PutMapping("/{id}")
 	public User updateUserByID(@PathVariable("id") Long id, @RequestBody User user)
 	{
 		try {
@@ -79,7 +81,7 @@ public class UserController {
 		}
 	}
 	
-	@DeleteMapping("deleteuser/{id}")
+	@DeleteMapping("/{id}")
 	public void deleteUserByID(@PathVariable("id") Long id) {
 		userservice.deleteUserByID(id);
 	}
