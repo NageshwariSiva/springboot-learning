@@ -5,6 +5,8 @@ import java.util.List;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
 
+import org.springframework.hateoas.RepresentationModel;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -18,7 +20,7 @@ import jakarta.persistence.Table;
 //but with different schema, we can send schema to uniquely identify table.
 @Entity
 @Table(name = "users")
-public class User {
+public class User extends RepresentationModel { //RepresentationModel - Hateoas
 	
 	@Id	//This annotation says this variable is PRIMARY KAY/
 	@GeneratedValue     //This annotation makes id to auto increment
