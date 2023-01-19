@@ -43,7 +43,7 @@ public class CustomGlobalExceptionHandler extends ResponseEntityExceptionHandler
 	}
 
 	// UserNameNotFoundException
-	//Whenever we get exception triggered to mentioned calss this method will be executed -- This is the role of using @HandleException annotation
+	//Whenever we get exception triggered in mentioned calss, this method will be executed -- This is the role of using @ExceptionHandler annotation
 	@ExceptionHandler(UserNameNotFoundException.class)
 	public final ResponseEntity<Object> handleUserNameNotFoundException(UserNameNotFoundException ex,
 			WebRequest request) {
