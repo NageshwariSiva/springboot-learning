@@ -5,8 +5,7 @@ import java.util.List;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonFilter;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -21,7 +20,8 @@ import jakarta.persistence.Table;
 //but with different schema, we can send schema to uniquely identify table.
 @Entity
 @Table(name = "users")
-@JsonIgnoreProperties({"firstname", "lastname"})
+//@JsonIgnoreProperties({"fname", "laname"}) -- Static filtering
+@JsonFilter(value = "FilterName")
 public class User {
 	
 	@Id	//This annotation says this variable is PRIMARY KAY/
@@ -47,7 +47,7 @@ public class User {
 	private String role;
 	
 	@Column(name = "SSN",length=50,nullable=false,unique=true)
-	@JsonIgnore
+	//@JsonIgnore -- Static filtering
 	private String ssn;	//unique key
 
 	@OneToMany(mappedBy = "user")
