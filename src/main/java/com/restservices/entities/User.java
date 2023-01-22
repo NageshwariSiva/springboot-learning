@@ -6,6 +6,7 @@ import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
 
 import com.fasterxml.jackson.annotation.JsonFilter;
+import com.fasterxml.jackson.annotation.JsonView;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -21,36 +22,44 @@ import jakarta.persistence.Table;
 @Entity
 @Table(name = "users")
 //@JsonIgnoreProperties({"fname", "laname"}) -- Static filtering
-@JsonFilter(value = "FilterName")
+//@JsonFilter(value = "FilterName")
 public class User {
 	
 	@Id	//This annotation says this variable is PRIMARY KAY/
 	@GeneratedValue     //This annotation makes id to auto increment
+	@JsonView(Views.External.class)
 	private Long id;
 	
 	// A table should have one primarykey but can have multiple unique key.
 	@NotEmpty(message = "Username should not be empty")
 	@Column(name = "USER_NAME",length=50,nullable=false,unique=true)
+	@JsonView(Views.External.class)
 	private String username;   //unique key
 	
 	@Size(min=2,message="fname should length of atleast 2")
 	@Column(name="FIRST_NAME",length=50,nullable=false)
+	@JsonView(Views.External.class)
 	private String fname;
 	
 	@Column(name="LAST_NAME",length=50,nullable=false)
+	@JsonView(Views.External.class)
 	private String lname;
 	
 	@Column(name="EMAIL",length=50,nullable=false)
+	@JsonView(Views.External.class)
 	private String email;
 	
 	@Column(name="ROLE",length=50,nullable=false)
+	@JsonView(Views.Internal.class)
 	private String role;
 	
 	@Column(name = "SSN",length=50,nullable=false,unique=true)
 	//@JsonIgnore -- Static filtering
+	@JsonView(Views.Internal.class)
 	private String ssn;	//unique key
 
 	@OneToMany(mappedBy = "user")
+	@JsonView(Views.Internal.class)
 	private List<Order> orders;
 	
 	//no argument constructor  (It is mandatory for JPA)
